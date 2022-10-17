@@ -1,0 +1,460 @@
+<!DOCTYPE HTML>
+<!--
+	Massively by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>SVD Movie Ratings - Jeremiah Dibble</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	</head>
+	
+	<body class="is-preload">
+	
+		<!-- Wrapper -->
+			<div id="wrapper">
+				<!-- Header -->
+				<header id="header">
+					<a href="index.html" class="logo">Jeremiah Dibble</a>
+				</header>
+
+				<!-- Nav -->
+				<nav id="nav">
+					<ul class="links">
+						<li class="active"><a href="index.html">Projects</a></li>
+						<li class="active"><a href="DNAS.html">SVD</a></li>
+
+					</ul>
+					<ul class="icons">
+						<li><a href="https://www.linkedin.com/in/jeremiah-dibble/" class="icon brands fa-linkedin"><span class="label">LinkedIn</span></a></li>
+						<li><a href="https://github.com/jeremiah-dibble" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+					</ul>
+				</nav>
+
+				<!-- Main -->
+					<div id="main">
+
+						<!-- Post -->
+							<section class="post">
+								<header class="major">
+									<span class="date">Spring 2021</span>
+									<h1>Predicting Movie <br /> Ratings (SVD)</h1>
+									<h3>Summary</h3>
+									<p>
+										Singular Value Decomposition (SVD) can be used to learn the relationship between two groups. 
+										Then the learned patterns can be used to predict interactions between a new member of either 
+										group and the other group members. Here we use SVD to learn the relationship between viewers 
+										movie ratings and the movies themselves. This allows us to predict how a view will feel about
+										a movie based on previous responses.
+									</p>
+										<a href="https://github.com/jeremiah-dibble/AdaptableNNs/tree/master">
+											Check out the Code on my GitHub </a>
+								</header>
+
+
+
+
+								<div id="wrap">
+									<input id="field" type="text" value="enter quality" size="20">
+									<input type="button" value="Predict">
+									<div id="results">
+										Results</div>
+								</div>
+								<!-- end wrap -->
+								<script type="text/javascript">
+								function getLocation() {
+									try {
+									navigator.geolocation.getCurrentPosition(showPosition);
+									} catch {
+									resultsObj.innerHTM = err;
+									}
+								}
+								
+								function showPosition(position) {
+									resultsObj.innerHTML =  "Location is: Latitude: " + fieldObj.value + position.coords.latitude + 
+									"<br>Longitude: " + position.coords.longitude;
+								}
+									var resultsObj, fieldObj;
+									resultsObj = document.getElementById("results");
+									fieldObj = document.getElementById('field');
+									fieldObj.addEventListener('blur', getLocation());
+								</script>
+
+
+								<h2>1 &emsp; Basic Visualizations</h2>
+								<p>
+									In the basic visualization of all ratings of the MovieLens Dataset we noticed that the distribution is
+									positively skewed, with more movies having a rating greater than 3, than movies with ratings less than
+									3. Furthermore, the most popular rating was a 4/5 compared to a more normal distribution where we
+									would expect the most common rating to be a 3/5. The positive skew suggests that most movies are
+									generally enjoyed, which may be indicative of the tendency of viewers to watch movies that tend to align
+									with interest or genre preference.
+
+								</p>
+								<header class="major">
+									<img src="images/movie_ratings/miniproject2_allMovies.png" />
+									<p><b>Figure 1: All Ratings of MovieLens Dataset</p></b>
+									</header>
+								<p>In the basic visualization of all the ratings of the 10 most popular movies we noticed that the most 
+									to the ratings are positive which was expected, but we also see that there are a handful of the most 
+									popular movies that are not rated well. We also need to keep in mind this is likely caused by some 
+									of the most popular movies being watched based on the popularity factor instead of aligning with the 
+									specific views interest as directly.
+
+								</p>
+								<header class="major">
+									<img src="images/movie_ratings/miniproject2_mostRated.png" />
+									<p><b>Figure 2: All Ratings of 10 Most Popular (Most Rated) Moviest</p></b>
+	
+								</header>
+								<p>In the basic visualization of all the ratings of the 10 best movies we noticed that the ratings of 
+									the top rated movies are all movies with one rating of 5, so we should keep number of ratings in mind.
+
+								</p>
+								<header class="major">
+									<img src="images/movie_ratings/miniproject2_HighestRated.png" />
+									<p><b>Figure 3: All Ratings of 10 Best (Highest Rated) Movies</p></b>
+	
+								</header>
+								<p>In the basic visualization of all the ratings of the Action, Crime, and Fantasy genres we noticed 
+									that these genres seem to have roughly the same distribution despite the difference in size.
+								</p>
+								<header class="major">
+									<img src="images/movie_ratings/miniproject2_genre.png" />
+									<p><b>Figure 4: All Ratings of Action, Crime, and Fantasy Movies</p></b>
+	
+								</header>
+
+
+
+
+								<h2>2 &emsp; Matrix Factorization Visualizations</h2>
+								<p>We implemented and created visuals for three different methods.</p>
+								<h3>2.1 &ensp; Matrix Factorization Methods</h3>
+								<h4>2.1.1 &ensp; Using Barebones SVD </h4>
+								<p>
+									First we implementedthe barebones svd with k=20 and a range of regularizations to determine 
+									which had the lowest validation error. We found the optimal regularization to be 0.1. 
+									This produced a mean squared error in predicting Y of 1.22, which we would discover makes 
+									it the worst of the bunch. The homework 5 code factorized the matrix by randomly filling U 
+									and Y based on a given k. Then U and Y are updated using stochastic gradient decent and with 
+									the sum of Frobenius norms used for regularization. The regularization will keep the overall 
+									weights in the matrix lower to reduce over-fitting. This model only used SGD on U and Y  and 
+									included the normalization in the error calculations.
+								</p>
+								<header class="major">
+									<img src="images/movie_ratings/miniproject2_5_U.png" />
+									<p><b>Figure 5: Latent Factors of U projection of HW5 SGD Model</p></b>
+									<img src="images/movie_ratings/miniproject2_5_V.png" />
+									<p><b>Figure 6: Latent Factors of V projection of HW5 SGD Model</p></b>
+								</header>
+								
+								<h4>2.1.2 &ensp; Using the Surprise Package (off the self matrix factorization) With Bias </h4>
+								<p>
+									Next we used the Surprise Package to conduct the matrix factorization without a bias term. 
+									The Surprise package uses a more complex version of SGD with an included row and column 
+									bias term. These bias terms compensate for the individuality of particular people or movies, 
+									for example if someone tends to rate every movie higher on average that will be compensated 
+									from in the bias term. This model performed much better on the test set than the homework 5 
+									implementation which indicates that the bias terms helped create a more accurate model. 
+									The test mean squared error was .871.
+								</p>
+								<header class="major">
+									<img src="images/movie_ratings/miniproject2_sur_SVD_U.png" />
+									<p><b>Figure 7: Latent Factors of U projection of Surprise with Bias SGD Model</p></b>
+									<img src="images/movie_ratings/miniproject2_sur_SVD_V.png" />
+									<p><b>Figure 8: Latent Factors of V projection of Surprise with Bias SGD Model</p></b>
+								</header>
+
+								<h4>2.1.3 &ensp; Using the Surprise Package with Non-negative Matrix Factorization </h4>
+								<p>
+									Lastly we used the Surprise Package again but this time with non-negative matrix factorization 
+									(NMF). As the name implies this model only produces positive factor values, which requires 
+									positive initialization and a more complex method of SGD. Keeping all the factor values positive 
+									could be seen as a prudent move given we are modeling rankings of movies, which cannot be negative, 
+									but this model failed to out perform the basic Surprise Package with bias. The NMF may also have 
+									under-performed because it is highly sensitive to initial conditions. Lastly, we chose not to use 
+									bias on the NMF model because adding a bias term make the model highly prone to over-fitting. 
+									This model ranked in the middle of the of the pack on the test set, with a mean squared error of .921.
+								</p>
+								<header class="major">
+									<img src="images/movie_ratings/miniproject2_sur_NMF_U.png" />
+									<p><b>Figure 9: Latent Factors of U projection of Surprise with NMF Model</p></b>
+									<img src="images/movie_ratings/miniproject2_sur_NMF_V.png" />
+									<p><b>Figure 10: Latent Factors of V projection of Surprise with NMF Model</p></b>
+								</header>
+
+								<h4>2.1.4 &ensp; Conclusion and Best Model </h4>
+								<p>
+									Based on the mean squared errors on the test set we can determine the relative quality of the 
+									three models we implemented. As already discussed, the Surprise Package with bias outperformed 
+									all of the other models (.871); followed by the NMF model (.921) and the HW5 code in last place 
+									(1.22). From the mean squared errors we can see that most significant change was moving to the 
+									Surprise Package, which accounted for the vast majority of the reduction in error from first to 
+									last place. The NMF model performed roughly 5\% worse than the bias model, which is seemingly 
+									small but the Netflix competition was only for a 10\% increase. Thus we can conclude that the 
+									Surprise model with bias is meaningfully better than the other models.
+								</p>
+								<h4>2.2.1 &ensp; Matrix Factorization Visualization </h4>
+								<p>
+									Here, we compare the 1st two principal components of the latent factors in the V projection. 
+									We observe that along the 1st principal component, the movies tend to be positioned relatively 
+									close to each other, with movies such as "Blood for Dracula" being on the far left and movies 
+									such as "Dirty Dancing" being near the right-middle. Along the 2nd principal component, we see 
+									that the same phenomenon is observed, with movies such as "Dirty Dancing" residing in the lower 
+									half and movies such as "Father of the Bride" residing the upper half. However, there are a 
+									non-negligible number of outliers which are occasionally different between models. We further 
+									observe a rough similarity in the plots between the unbiased SGD and biased SVD models, which 
+									makes sense given that the models produce similar latent factors given they both perform ordinary 
+									matrix factorization algorithms. However, the NMF model tended to produce much different estimates 
+									with comparatively much lower variance along the 1st principal component, likely due to its latent 
+									factors being forced non-negative. 
+								</p>
+
+
+								<h2>3 &emsp; Methods</h2>
+								<h3>3.1 &ensp;The Problem</h3>
+								<header class="major">
+								<img src="https://latex.codecogs.com/svg.image?&space;&space;&space;&space;&space;&space;&space;&space;&space;\begin{align*}&space;&space;&space;&space;&space;&space;&space;&space;&space;&space;&space;&space;&space;p^*&space;&=&space;\min_{\theta\in\Theta}&space;\&space;\&space;\&space;\mathcal{L}(Y_{\text{val}},&space;\theta(X_{\text{val}}))&space;\\&space;&space;&space;&space;&space;&space;&space;&space;&space;&space;&space;&space;&space;&\&space;\&space;\&space;\&space;\&space;\&space;\text{s.t.}&space;\&space;\&space;\&space;\&space;&space;\lvert\theta\rvert&space;\leq&space;M&space;&space;&space;&space;&space;&space;&space;&space;&space;\end{align*}" title="https://latex.codecogs.com/svg.image? \begin{align*} p^* &= \min_{\theta\in\Theta} \ \ \ \mathcal{L}(Y_{\text{val}}, \theta(X_{\text{val}})) \\ &\ \ \ \ \ \ \text{s.t.} \ \ \ \ \lvert\theta\rvert \leq M \end{align*}" />
+
+								</header>
+								<p>
+								where Yval and θ(Xval)) are the validation labels and predictions, and θ are the learnable parameters
+								characterizing the network in the space of all sets of learnable parameters Θ. M is some hard
+								constraint on the number of parameters and L is our loss function. However, this primitive formulation
+								is relatively limiting as one cannot know how to set M appropriately. Thus, we can rewrite this
+								optimization problem as the following to loosen this constraint by adding a Lagrangian term:
+								</p>
+								<header class="major">
+								<img src="https://latex.codecogs.com/svg.image?\begin{align}&space;&space;&space;&space;&space;&space;&space;&space;d^*&space;&=&space;&space;\min_{\theta\in\Theta}&space;\&space;\&space;\&space;\mathcal{L}(Y_{\text{val}},&space;\theta(X_\text{val}))&space;&plus;&space;\lambda&space;\lvert\theta\rvert&space;&space;&space;&space;\end{align}" title="https://latex.codecogs.com/svg.image?\begin{align} d^* &= \min_{\theta\in\Theta} \ \ \ \mathcal{L}(Y_{\text{val}}, \theta(X_\text{val})) + \lambda \lvert\theta\rvert \end{align}" />
+								</header>
+								<p>
+									With this formulation, we now see that we have two objectives: the primary goal should be to
+									reduce the test loss, while the secondary goal is to minimize the number of parameters of the model.
+									Here, negative of the objective will serve as the reward for our RL Controller. The RL Controller
+									uses validation data to adjust the size of the network to avoid training the network architecture to over
+									fit the test data. The RL Controller will then try to minimize this reward during training by acting
+									on the network, a procedure detailed in the next section. Lastly, the amount of additional training
+									between network size adjustments must be sufficiently large to ensure the network has been trained
+									with the new elements
+								</p>
+
+								<h3>3.2 &ensp;Resizing a Neural Network Efficiently</h3>
+
+								<p>In this work we set Θ to be the parameter space of all networks comprised solely of fully-connected
+									layers. When considering how one can resize a network of this type, there are four basic operations
+									available:
+									
+									<p>1. &ensp;Add a unit to hidden layer l.</p>
+									<p>2. &ensp;Remove a unit from hidden layer l.</p>
+									<p>3. &ensp;Add a hidden layer between layers l and l + 1.</p>
+									<p>4. &ensp;Remove hidden layer l.</p>
+									<p>When acting on the network in these ways, we simultaneously desire that the output of the network
+									changes as little as possible. To add a unit/hidden layer, this is a relatively simple task. Adding a
+									unit to a hidden layer is essentially just adding a row to one weight matrix, and a column to the
+									next weight matrix (as well as adding a bias term). If all of these entries are 0, then the output of
+									the network will not change, hence this is desirable for our use case. The back propagation during
+									training will then adjust this newly added row and column to act nontrivially on the latent input.
+									Likewise, adding a hidden layer to the network is just adding in a weight matrix. If we make this
+									weight matrix an identity matrix, then again, the output of the network will remain unchanged.
+									
+								</p>
+								<p>What is much less trivial is the removal of a unit or hidden layer. Removing a hidden unit means
+									that we must remove a row from a weight matrix, and a column from the next weight matrix. Here,
+									Wi will represent the i-th row of the first weight matrix, and V
+									i will represent the i-th column of the
+									weight matrix, while bi will denote the i-th entry of the bias vector acting in between W and V. To
+									perturb the network as little as possible, we use the following rule to determine which row/column is
+									removed:
+								</p>
+								<header class="major">
+									<img src="https://latex.codecogs.com/svg.image?&space;\begin{align*}&space;&space;&space;&space;&space;&space;&space;&space;&space;&space;&space;&space;r&space;&=&space;\underset{i}{\text{argmin}}&space;\&space;\&space;\&space;\lVert&space;W_i&space;\rVert_2^2&space;&plus;&space;\lVert&space;V^i&space;\rVert_2^2&space;&plus;&space;b_i^2&space;&space;&space;&space;&space;&space;&space;&space;\end{align*}" title="https://latex.codecogs.com/svg.image? \begin{align*} r &= \underset{i}{\text{argmin}} \ \ \ \lVert W_i \rVert_2^2 + \lVert V^i \rVert_2^2 + b_i^2 \end{align*}" />
+								</header>
+
+								<p>In other words, we want to take the row/column/bias term which has the smallest magnitude, as
+									intuitively this should have the smallest affect on the latent output. Empirically we determined that
+									this was the most effective method for minimizing the output between the old output of the network
+									and the new ‘reduced’ network output of the methods we tried.
+								</p>
+								<p>
+									Finally, the problem of removing a hidden layer is relatively simple. Suppose we want to remove
+									the Wi weight matrix. If normally in the forward computation, we compute
+								</p>
+								<p>
+								<header class="major">
+									<img src="https://latex.codecogs.com/svg.image?\begin{align*}&space;&space;&space;&space;&space;&space;&space;&space;&space;&space;&space;&space;W_{i&plus;1}\sigma(W_i\sigma(W_{i-1}z))&space;&space;&space;&space;&space;&space;&space;&space;\end{align*}" title="https://latex.codecogs.com/svg.image?\begin{align*} W_{i+1}\sigma(W_i\sigma(W_{i-1}z)) \end{align*}" />
+								</header>
+								<p>where σ is a ReLU nonlinearity, then we can instead absorb Wi
+									into Wi−1 by
+								</p>
+								<header class="major">
+									<img src="https://latex.codecogs.com/svg.image?\begin{align*}&space;&space;&space;&space;&space;&space;&space;&space;&space;&space;&space;&space;W_{i-1}'=W_i&space;W_{i-1}&space;&space;&space;&space;&space;&space;&space;&space;\end{align*}" title="https://latex.codecogs.com/svg.image?\begin{align*} W_{i-1}'=W_i W_{i-1} \end{align*}" />
+								</header>	
+								<p>so that the new, ‘approximate’ computation would be:
+								</p>
+								<header class="major">
+									<img src="https://latex.codecogs.com/svg.image?&space;&space;&space;&space;\begin{align*}&space;&space;&space;&space;&space;&space;&space;&space;&space;&space;&space;&space;W_{i&plus;1}\sigma(W_{i-1}'z)&space;&=&space;W_{i&plus;1}\sigma(W_iW_{i-1}z)&space;&space;&space;&space;&space;&space;&space;&space;\end{align*}" title="https://latex.codecogs.com/svg.image? \begin{align*} W_{i+1}\sigma(W_{i-1}'z) &= W_{i+1}\sigma(W_iW_{i-1}z) \end{align*}" />
+	
+								</header>
+								
+								<p>Doing it this way will minimize the distortion created by the absence of the nonlinearity, and
+									empirically we showed that this was the most effective method of removing a hidden layer from the
+									network while perturbing the output as little as possible.
+								</p>
+								<h3>3.3 &ensp;The Algorithm</h3>
+								<h4>3.3.1 &ensp;Pesudo Code</h4>
+								<p>The pseudocode for DNAS is given below:
+								</p>
+								<header class="major">
+									<img src="images/sudo_code.jpg" />
+								</header>
+								<h4>3.3.2 &ensp;Typical training</h4>
+								<p>Until, line 5 of the pesudocode the algorithm is essentially standard back-propagation. In lines
+								5 through 9 contain the novel portion of this algorithm, which is architecture adjustment and RL
+								Controller training. In the simple case of a fully connected network, the model will train with standard
+								backpropagation and periodically calculate the current evaluation loss and run the RL Controller. The
+								RL Controller uses the historical train loss, evaluation loss, backpropagation gradient, and network
+								size to determine if it should shrink, grow, or not modify the architecture. Another empirical finding
+								of ours was that in general, it is optimal to let the gradient magnitudes to converge somewhat before
+								deciding how to change the network.
+								</p>
+								<h2>4 &emsp;Experiments and Findings
+								</h2>
+								<p>
+									To test DNAS, we wanted to test the robustness of the controller on a variety of different datasets
+									and initial conditions. We present the results for restricting our networks to 1 hidden layer, as we
+									unfortunately could not get a model with arbitrary number of hidden layers to learn in a stable fashion.
+								</p>
+								<p>
+									To start, we initialized our networks from 3 configurations for our hidden layer: 16, 64, and 256
+									units. From here, we then ran our algorithm to see if these models would roughly converge to the
+									same ‘optimal’ architecture. The results are presented in the figure below for the QMNIST, KMNIST,
+									and FashionMNIST datasets, each with 3 seeds to ensure that the algorithm was not ‘getting lucky’.
+								</p>
+								<div class="image main"><img src="images/MNST4plot.png" alt="" /></div>
+								<header class="major"><b>Figure 1: MNIST Training</b></header>
+								<div class="image main"><img src="images/FashionMNIST4plot.png" alt="" /></div>
+								<header class="major"><b>Figure 2: FashionMNIST Training</b></header>
+								<div class="image main"><img src="images/KMNST4plot.png" alt="" /></div>
+								<header class="major"><b>Figure 1: KMNIST Training</b></header>
+
+								<h3>4.1 &ensp;Empirical Findings
+								</h2>
+								<p>
+									In these three graphs, we see that these models all generally go approach the same architecture,
+									indicating that DNAS is working well. As an intuitive verification that our model is working, we
+									also note that there seems to be a correlation between the complexity of the data and the size of the
+									optimal network. For in the MNIST case, which is the ‘simplest’ dataset consisting of handwritten
+									digits, the optimal hidden size was approximately 225 hidden units. However for KMNIST and
+									FashionMNIST, the dataset of more ‘complex’ handwritten symbols and clothing items, respectively,
+									we see that a larger architecture is desirable, as these datasets converge closer to 275 units.
+								</p>
+								<p>
+									We found that the strongest signal to the model for deciding how to adjust the model was the
+									average gradient magnitude for parameter. The graphs above show that the gradient allows the model
+									to know how close the model is to optimal, and above a certain number of parameters, the gradient
+									cannot get any lower. Thus, the model will naturally go to the smallest network architecture it can
+									find while still having a minimal gradient magnitude. We also saw that using losses/accuracy figures
+									are generally noisier and harder for the model to interpret
+								</p>
+
+								
+								<h2>5 &emsp;Discussion
+								</h2>
+								<p>
+									In this work, we have presented a novel framework for dynamically adjusting the size of a network
+									during training to optimize for performance and the number of parameters. We have shown the
+									algorithms effectiveness on a variety of test cases, and hope to expand this work in the future by
+									introducing more potential architectures for a model, as well as making the RL Controller more
+									advanced. Ultimately, our goal is that this framework could serve as a wrapper for an arbitrary model
+									trained on an arbitrary dataset, and would quietly adjust the size of the model to be optimal during
+									training, and ultimately produce the most compact but effective model for the user to have
+								</p>
+								<p>
+									Although this framework was highly effective for finding optimal solution for fully connected
+									networks, fully connected networks are a small subset of possible network architectures. The RL
+									Controller lacks the complexity needed to determine when to adjust the number of layers because the
+									ability to adjust the number of layers increases the degrees of freedom for the controller dramatically.
+									Since the RL Controller is rewarded based on the change in (1), the model prone to getting stuck in
+									local minimum. This is exacerbated by a lack of training data for the RL Controller with the ground
+									truth, which would allow the RL Controller to be trained based on reaching the optimal network size
+									rather than simply moving toward the local optimal solution.
+								</p>
+
+								<h3>5.1 &ensp;Future Work
+								</h2>
+								<p>
+									This method of network architecture search was limited to fully connected networks which limits
+									the class of problems this algorithm can solve and simplifies the problem significantly for the RL
+									Controller. Expanding DNAS to be able to learn CNN, RNN, and other more advanced architectures
+									will vastly expand its use cases, and could have profound effects for data scientists everywhere.
+									Additionally, improving the DNAS algorithm to allow for stable learning of the processes to add and
+									remove hidden layers. As previously mentioned, adding layer adjustments to the RL Controller will
+									significantly increase it’s complexity and thus the amount of data need to train it will increase, so
+									pre-training the RL Controller on well know data sets may be advantageous. For example, training the
+									RL Controller using well established models as the ground truth may help it learn layer organization
+									strategies from these hand made models. Finding solutions to these issues in our project and exploring
+									improved methods will surely yield to better, more comprehensive future results.
+								</p>
+								<h3>Referencess</h3>
+								<p> <b>[1]</b> &ensp; Massimiliano Lupo Pasini, Junqi Yin, Ying Wai Li, Markus Eisenbach, A scalable algorithm for the optimization of neural network architectures. https://doi.org/10.1016/j.parco.2021.102788.</p>
+								<p> <b>[2]</b> &ensp;
+									Barret Zoph, Quoc V. Le Neural Architecture Search with Reinforcement Learning. arXiv preprint
+									arXiv:1611.01578, 2017
+								</p>
+								<p> <b>[3]</b> &ensp;
+									James Bergstra, R. Bardenet, Yoshua Bengio, Balázs Kégl. Algorithms for Hyper-Parameter
+									Optimization. In 25th Annual Conference on Neural Information Processing Systems(NIPS 2011)
+								</p>
+
+
+							</section>
+
+					</div>
+
+					
+
+				<!-- Footer -->
+				<footer id="footer">
+
+					<section class="split contact">
+						<section class="alt">
+							<h3>Address</h3>
+							<p>1401 Manhattan Beach Blvd.<br />
+							Manhattan Beach, CA 90291</p>
+						</section>
+						<section>
+							<h3>Phone</h3>
+							<p><a href="#">(424) 216-1785</a></p>
+						</section>
+						<section>
+							<h3>Email</h3>
+							<p><a href="#">jeremiah.dibble@gmail.com</a></p>
+						</section>
+						<section>
+							<h3>Social</h3>
+							<ul class="icons alt">
+								<li><a href="https://www.linkedin.com/in/jeremiah-dibble/" class="icon brands fa-linkedin"><span class="label">LinkedIn</span></a></li>
+								<li><a href="https://github.com/jeremiah-dibble" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+							</ul>
+						</section>
+					</section>
+				</footer>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
