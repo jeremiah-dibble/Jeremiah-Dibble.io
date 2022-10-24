@@ -26,7 +26,7 @@
 				<nav id="nav">
 					<ul class="links">
 						<li class="active"><a href="index.html">Projects</a></li>
-						<li class="active"><a href="DNAS.html">SVD</a></li>
+						<li class="active"><a href="Movies.html">SVD</a></li>
 						<li class="active"><a href="Resume.html">Resume</a></li>
 
 					</ul>
@@ -52,19 +52,71 @@
 										movie ratings and the movies themselves. This allows us to predict how a view will feel about
 										a movie based on previous responses.
 									</p>
-										<a href="https://github.com/jeremiah-dibble/Movie-Rating-Predictions">
-											Check out the Code on my GitHub </a>
+									Check out the Code on my
+									<a href="https://github.com/jeremiah-dibble/Movie-Rating-Predictions">
+										GitHub </a>
+									or 
+									<a href="https://colab.research.google.com/drive/161uCELLDMGOPhEz0D5EmlFcW4cfEa4AP?usp=sharing">
+										Google Colab </a>
 								</header>
 
+<!-- 								
+								<p>Click the button to get your coordinates.</p>
+								<input id="field" type="text" value="enter quality" size="20">
+								<div id="results">
+									Results</div>
+
+								<button onclick="query()">Try It</button>
+
+								<p id="demo"></p>
+
+								<script>
+								import fetch from "node-fetch";
+								const demo = document.getElementById("demo");
+								var resultsObj, fieldObj;
+									resultsObj = document.getElementById("results");
+									fieldObj = document.getElementById('field');
+
+								// function getLocation() {
+								// try {
+								// 	navigator.geolocation.getCurrentPosition(showPosition);
+								// } catch {
+								// 	x.innerHTML = err;
+								// }
+								// }
+
+								// function showPosition(position) {
+								// x.innerHTML = "Latitude: " + position.coords.latitude + 
+								// "<br>Longitude: " + position.coords.longitude;
+								// }
+								async function query(data) {
+									const response = await fetch(
+										"https://api-inference.huggingface.co/models/gpt2",
+										{
+											headers: { Authorization: `Bearer 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` },
+											method: "POST",
+											body: JSON.stringify(data),
+										}
+									);
+									const result = await response.json();
+									// const string = JSON.stringify(result.response)
+									demo.innerHTML = JSON.stringify(result.response)
+									// return result;
+								}
+
+									// fieldObj.addEventListener('blur', query({inputs: fieldObj.value})())
+								// query({inputs: fieldObj.value}).then((response) => {
+								// 	console.log(JSON.stringify(response));
+								// });
+								</script> -->
 
 
-
-								<div id="wrap">
+								<!-- <div id="wrap">
 									<input id="field" type="text" value="enter quality" size="20">
 									<input type="button" value="Predict">
 									<div id="results">
 										Results</div>
-								</div>
+								</div> -->
 								<!-- end wrap -->
 								<!-- <script type="text/javascript">
 								function getLocation() {
@@ -85,7 +137,7 @@
 									fieldObj.addEventListener('blur', getLocation());
 								</script> -->
 
-								<script>
+								<!-- <script>
 								import fetch from "node-fetch";
 								async function query(data) {
 									const response = await fetch(
@@ -108,7 +160,7 @@
 								query({inputs: fieldObj.value}).then((response) => {
 									console.log(JSON.stringify(response));
 								});
-								</script>
+								</script> -->
 
 
 
