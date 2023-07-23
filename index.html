@@ -5,229 +5,294 @@
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 -->
 <html>
-	
 
-	<head>
-	
-		<title>Jeremiah Dibble</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="assets/css/main.css" />
-		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
-		<html>
+
+<head>
+
+	<title>Jeremiah Dibble</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<link rel="stylesheet" href="assets/css/main.css" />
+	<noscript>
+		<link rel="stylesheet" href="assets/css/noscript.css" />
+	</noscript>
+	<link rel="icon" type="image/png" href="./images/favicon-32x32.png">
+	<html>
+
+
+</head>
+
+<body class="is-preload">
+	<!-- Wrapper -->
+	<div id="wrapper" class="fade-in">
+		<p style="background-image: url('images/Mean_Subplot_Con.jpg');"></p>
+		<!-- Intro -->
+		<div id="intro">
+			<h1>Jeremiah Dibble<br />
+			</h1>
+			<p>Machine Learning Engineer
+			<ul class="actions">
+				<li><a href="#header" class="button icon solid solo fa-arrow-down scrolly">Continue</a></li>
+			</ul>
+		</div>
+
+		<!-- Header -->
+		<header id="header">
+			<a href="index.html" class="logo">Jeremiah Dibble</a>
+		</header>
+
+		<!-- Nav -->
+		<nav id="nav">
+			<ul class="links">
+				<li class="active"><a href="index.html">Projects</a></li>
+				<li class="active"><a href="Resume.html">Resume</a></li>
+
+			</ul>
+			<ul class="icons">
+				<li><a href="https://www.linkedin.com/in/jeremiah-dibble/" class="icon brands fa-linkedin"><span
+							class="label">LinkedIn</span></a></li>
+				<li><a href="https://github.com/jeremiah-dibble" class="icon brands fa-github"><span
+							class="label">GitHub</span></a></li>
+			</ul>
+		</nav>
+
+
+		<!-- Main -->
+		<div id="main">
+
+			<!-- Featured Post -->
+			<article class="post featured">
+				<header class="major">
+					<span class="date">Summer 2023</span>
+					<h2><a href="DNAS.html">YouTube Comments <br /> Scam Detection</a></h2>
+				</header>
+				<p>
+					With the development of cheaper and more available LLMs, scams originating from bots in YouTube
+					comments have become more common and difficult to easily moderate. Luckily, LLMs can also be the
+					solution. To solve this problem, I created this API for collecting YouTube comments and using OpenAI GPT-Turbo to classify them
+					into scam/spam comments or not. There is also an HTML front end that will allow you to paste a
+					YouTube video link and get back a list of the users who are likely leaving spam/scam comments and
+					the comments associated with each spam user. 
+			
+					<br />
+					<a href="https://www.youtube.com/watch?v=YR_Dz1I7tAI" target="_blank">Here is an example from this video, feel free to check if YouTube’s moderation is as good as mine and see if they have removed the comments yet.</a>
+				</p>
+				<a href="https://github.com/jeremiah-dibble/Youtube_Comment_Spam_Id" class="image fit"><img src="images/Youtube_comments.jpg" alt="" /></a>
+				<ul class="actions special">
+					<a href="https://github.com/jeremiah-dibble/Youtube_Comment_Spam_Id" target="_blank">
+						Check out the Code on my GitHub
+					</a>
+					<!-- <li><a href="DNAS.html" class="button">Full Story</a></li> -->
+				</ul>
+			</article>
 			
 
-	</head>
-	<body class="is-preload">
-		<!-- Wrapper -->
-			<div id="wrapper" class="fade-in">
-				<p style="background-image: url('images/Mean_Subplot_Con.jpg');"></p>
-				<!-- Intro -->
-					<div id="intro">
-						<h1>Jeremiah Dibble<br />
-						</h1>
-						<p>Machine Learning Engineer <ul class="actions">
-							<li><a href="#header" class="button icon solid solo fa-arrow-down scrolly">Continue</a></li>
-						</ul>
-					</div>
 
-				<!-- Header -->
-					<header id="header">
-						<a href="index.html" class="logo">Jeremiah Dibble</a>
+			<!-- Posts -->
+			<section class="posts">
+				<article class="post featured">
+					<header class="major">
+						<span class="date">Spring 2021</span>
+						<h2><a href="DNAS.html">Dynamic Network <br /> Architecture Search</a></h2>
 					</header>
+					<p>
+						Deciding on the correct architecture to use is often very time consuming and often
+						a difficult balance between using enough parameters to obtain optimal performance
+						and not using too many such that overfitting occurs and computational power
+						is wasted. We have designed a framework to find the optimal architecture for
+						an application. Our Dynamic Neural Architecture Search uses a Reinforcement
+						Learning Controller to optimally adjust the network architecture during training.
+					</p>
+					<a href="DNAS.html" class="image fit"><img src="images/KMNST4plot.png" alt="" /></a>
+					<ul class="actions special">
+						<li><a href="DNAS.html" class="button">Full Story</a></li>
+					</ul>
+				</article>
 
-				<!-- Nav -->
-					<nav id="nav">
-						<ul class="links">
-							<li class="active"><a href="index.html">Projects</a></li>
-							<li class="active"><a href="Resume.html">Resume</a></li>
-							
-						</ul>
-						<ul class="icons">
-							<li><a href="https://www.linkedin.com/in/jeremiah-dibble/" class="icon brands fa-linkedin"><span class="label">LinkedIn</span></a></li>
-							<li><a href="https://github.com/jeremiah-dibble" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
-						</ul>
-					</nav>
+				<article>
+					<header class="major">
+						<span class="date">Summer 2022</span>
+						<h2><a href="privateEquity.html">
+								Illiquid Private <br /> Equity Forecasting</a></h2>
+					</header>
+					<a href="Movies.html" class="image fit"><img src="images/privateEquity.jpg" alt="" /></a>
+					<p>Using numerical and categorical data with a language model to classify reviews.
+						It uses the multimodal_transformers along with huggingface libraires to classify
+						amazon reviews based on numerical/categorical data and text.
+						I trained the language model to predict the star rating
+						given in the review. This example is designed to be very easy to modify to
+						run on another dataset for learning or practical use.
+					</p>
+					<ul class="actions special">
+						<li><a href="Movies.html" class="button">Full Story</a></li>
+					</ul>
+				</article>
+
+				<article>
+					<header class="major">
+						<span class="date">Winter 2021</span>
+						<h2><a href="Movies.html">Predicting Movie Ratings</a></h2>
+					</header>
+					<a href="Movies.html" class="image fit"><img
+							src="images/movie_ratings/miniproject2_sur_SVD_V_genre.png" alt="" /></a>
+					<p>
+						Singular Value Decomposition (SVD) can be used to learn the relationship between two groups.
+						Then the learned patterns can be used to predict interactions between a new member of either
+						group and the other group members. Here we use SVD to learn the relationship between viewers
+						movie ratings and the movies themselves. This allows us to predict how a view will feel about
+						a movie based on previous responses.
+					</p>
+					<ul class="actions special">
+						<li><a href="Movies.html" class="button">Full Story</a></li>
+					</ul>
+				</article>
+
+				<article>
+					<header class="major">
+						<span class="date">Summer 2022</span>
+						<h2><a href="Num-LM.html">Numerical Data with a Language Model</a></h2>
+					</header>
+					<a href="Num-LM.html" class="image fit"><img src="images/Num-Cat-Loss.jpg" alt="" /></a>
+					<p>
+						Using numerical and categorical data with a language model to classify reviews.
+						It uses the multimodal_transformers along with huggingface libraires to classify
+						amazon reviews based on numerical/categorical data and text.
+						I trained the language model to predict the star rating
+						given in the review. This example is designed to be very easy to modify to
+						run on another dataset for learning or practical use.
+					</p>
+					<ul class="actions special">
+						<li><a href="Num-LM.html" class="button">Full Story</a></li>
+					</ul>
+				</article>
+
+				<article>
+					<header class="major">
+						<span class="date">Summer 2022</span>
+						<h2><a href="AWS.html">Distributed AWS Training for Content Moderation</a></h2>
+					</header>
+					<a href="AWS.html" class="image fit"><img src="images/MLOps-Workflow.png" alt="" /></a>
+					<p>
+						End-to-end non-distributed and distributed training for content moderation on AWS. I used the
+						Hugging Face transformers and datasets library together with a custom
+						Amazon sagemaker-sdk extension to fine-tune a pre-trained transformer for multilabel
+						text-classification
+						on a single or multiple-gpus.
+
+					</p>
+					<ul class="actions special">
+						<li><a href="AWS.html" class="button">Full Story</a></li>
+					</ul>
+				</article>
+
+				<article>
+					<header class="major">
+						<span class="date">Spring 2021</span>
+						<h2><a href="Fires.html">Forest Fire Analysis</a></h2>
+					</header>
+					<!-- <a href="Num-LM.html" class="image fit"><img src="images/Num-Cat-Loss.jpg" alt="" /></a> -->
+					<p>
+						We tried implementing a variety of models to predict fire type, starting with a simple random
+						forest and decision tree
+						model; followed by adaboost and neural networks. The initial simple models were able to classify
+						with 55%. The neural network also performed poorly and we de-
+						termined it was not an ideal model given the limited number of input variables and the lack of
+						complexity.
+						Finally, we decided a decision tree with gradient boosting would be ideal for sorting
+						categorical data with
+						fairly limited number of variables. To implement this model we used Light GBM because it trains
+						quickly
+						and it we knew we would re-run the model many times in the tuning process.
 
 
-				<!-- Main -->
-					<div id="main">
+					</p>
+					<ul class="actions special">
+						<li><a href="Fires.html" class="button">Full Story</a></li>
+					</ul>
+				</article>
 
-						<!-- Featured Post -->
-						<article class="post featured">
-							<header class="major">
-								<span class="date">Spring 2021</span>
-									<h2><a href="DNAS.html">Dynamic Network  <br /> Architecture Search</a></h2>
-								</header>
-								<p>
-									Deciding on the correct architecture to use is often very time consuming and often
-									a difficult balance between using enough parameters to obtain optimal performance
-									and not using too many such that overfitting occurs and computational power
-									is wasted. We have designed a framework to find the optimal architecture for
-									an application. Our Dynamic Neural Architecture Search uses a Reinforcement
-									Learning Controller to optimally adjust the network architecture during training.
-								</p>
-								<a href="DNAS.html" class="image fit"><img src="images/KMNST4plot.png" alt="" /></a>
-								<ul class="actions special">
-									<li><a href="DNAS.html" class="button">Full Story</a></li>
-								</ul>
-							</article>
-							<!-- <article class="post featured">
-								<header class="major">
-									<span class="date">Summer 2022</span>
-									<h2><a href="privateEquity.html">
-									Illiquid Private <br /> Equity Forecasting</a></h2>
-									<p>Using numerical and categorical data with a language model to classify reviews. 
-										It uses the multimodal_transformers along with huggingface libraires to classify 
-										amazon reviews based on numerical/categorical data and text.
-										I trained the language model to predict the star rating 
-										given in the review. This example is designed to be very easy to modify to 
-										run on another dataset for learning or practical use.									
-									</p>
-								</header>
-								<a href="privateEquity.html" class="image main"><img src="images/privateEquity.jpg" alt="" /></a>
-								<ul class="actions special">
-									<li><a href="privateEquity.html" class="button large">Full Story</a></li>
-								</ul>
-							</article>  -->
+				<article>
+					<header class="major">
+						<span class="date">Spring 2021</span>
+						<h2><a href="BEM.html">The Disposition Effect Resulting from Irregular
+								Reference Point Setting</a></h2>
+					</header>
+					<!-- <a href="#" class="image fit"><img src="images/pic03.jpg" alt="" /></a> -->
+					<p>This paper proposes that a rational investor would set her reference point based on her
+						expectation of
+						the growth or future value of the asset, rather than the purchase price. When selling,
+						traders will receive an additional utility based on the difference between the trader reference
+						point
+						and current price of the stock, which is the primary non-rational behavior in this model.
+						Realization
+						utility is supported by Frydman (2012) and I propose this realization utility could me more
+						accurately
+						modeled as an internal reaction to the belief that the investor accurately set price targets,
+						so investors would still value paper gains.</p>
+					<ul class="actions special">
+						<li><a href="BEM.html" class="button">Full Story</a></li>
+					</ul>
+				</article>
 
-						<!-- Posts -->
-							<section class="posts">
-								<article>
-									<header>
-										<span class="date">Winter 2021</span>
-										<h2><a href="Movies.html">Predicting Movie Ratings</a></h2>
-									</header>
-									<a href="Movies.html" class="image fit"><img src="images/movie_ratings/miniproject2_sur_SVD_V_genre.png" alt="" /></a>
-									<p>
-										Singular Value Decomposition (SVD) can be used to learn the relationship between two groups. 
-										Then the learned patterns can be used to predict interactions between a new member of either 
-										group and the other group members. Here we use SVD to learn the relationship between viewers 
-										movie ratings and the movies themselves. This allows us to predict how a view will feel about
-										a movie based on previous responses.
-									</p>
-									<ul class="actions special">
-										<li><a href="Movies.html" class="button">Full Story</a></li>
-									</ul>
-								</article>
+			</section>
+		</div>
 
-								<article>
-									<header>
+		<!-- Footer -->
+		<footer id="footer">
+
+			<section class="split contact">
+				<section class="alt">
+					<h3>Address</h3>
+					<p>Manhattan Beach, CA 90291</p>
+				</section>
+				<section>
+					<h3>Phone</h3>
+					<p><a href="#">(424) 216-1785</a></p>
+				</section>
+				<section>
+					<h3>Email</h3>
+					<p><a href="#">jeremiah.dibble@gmail.com</a></p>
+				</section>
+				<section>
+					<h3>Social</h3>
+					<ul class="icons alt">
+						<li><a href="https://www.linkedin.com/in/jeremiah-dibble/" class="icon brands fa-linkedin"><span
+									class="label">LinkedIn</span></a></li>
+						<li><a href="https://github.com/jeremiah-dibble" class="icon brands fa-github"><span
+									class="label">GitHub</span></a></li>
+					</ul>
+				</section>
+			</section>
+		</footer>
+	</div>
+
+	<!-- Scripts -->
+	<script src="assets/js/jquery.min.js"></script>
+	<script src="assets/js/jquery.scrollex.min.js"></script>
+	<script src="assets/js/jquery.scrolly.min.js"></script>
+	<script src="assets/js/browser.min.js"></script>
+	<script src="assets/js/breakpoints.min.js"></script>
+	<script src="assets/js/util.js"></script>
+	<script src="assets/js/main.js"></script>
+	</p>
+</body>
+
+</html>
+<!-- <article class="post featured">
+									<header class="major">
 										<span class="date">Summer 2022</span>
-										<h2><a href="Num-LM.html">Numerical Data with a Language Model</a></h2>
-									</header>
-									<a href="Num-LM.html" class="image fit"><img src="images/Num-Cat-Loss.jpg" alt="" /></a>
-									<p>
-										Using numerical and categorical data with a language model to classify reviews. 
+										<h2><a href="privateEquity.html">
+										Illiquid Private <br /> Equity Forecasting</a></h2>
+										<p>Using numerical and categorical data with a language model to classify reviews. 
 											It uses the multimodal_transformers along with huggingface libraires to classify 
 											amazon reviews based on numerical/categorical data and text.
 											I trained the language model to predict the star rating 
 											given in the review. This example is designed to be very easy to modify to 
-											run on another dataset for learning or practical use.	
-									</p>
-									<ul class="actions special">
-										<li><a href="Num-LM.html" class="button">Full Story</a></li>
-									</ul>
-								</article>
-
-								
-
-								<article>
-									<header>
-										<span class="date">Summer 2022</span>
-										<h2><a href="AWS.html">Distributed AWS Training for Content Moderation</a></h2>
+											run on another dataset for learning or practical use.									
+										</p>
 									</header>
-									<a href="AWS.html" class="image fit"><img src="images/MLOps-Workflow.png" alt="" /></a>
-									<p>
-										End-to-end non-distributed and distributed training for content moderation on AWS. I used the Hugging Face transformers and datasets library together with a custom 
-										Amazon sagemaker-sdk extension to fine-tune a pre-trained transformer for multilabel text-classification 
-										on a single or multiple-gpus. 
-										
-									</p>
+									<a href="privateEquity.html" class="image main"><img src="images/privateEquity.jpg" alt="" /></a>
 									<ul class="actions special">
-										<li><a href="AWS.html" class="button">Full Story</a></li>
+										<li><a href="privateEquity.html" class="button large">Full Story</a></li>
 									</ul>
-								</article>
-
-								<article>
-									<header>
-										<span class="date">Spring 2021</span>
-										<h2><a href="Fires.html">Forest Fire Analysis</a></h2>
-									</header>
-									<!-- <a href="Num-LM.html" class="image fit"><img src="images/Num-Cat-Loss.jpg" alt="" /></a> -->
-									<p>
-										We tried implementing a variety of models to predict fire type, starting with a simple random forest and decision tree
-										model; followed by adaboost and neural networks. The initial simple models were able to classify with 55%. The neural network also performed poorly and we de-
-										termined it was not an ideal model given the limited number of input variables and the lack of complexity.
-										Finally, we decided a decision tree with gradient boosting would be ideal for sorting categorical data with
-										fairly limited number of variables. To implement this model we used Light GBM because it trains quickly
-										and it we knew we would re-run the model many times in the tuning process.
-										
-	
-									</p>
-									<ul class="actions special">
-										<li><a href="Fires.html" class="button">Full Story</a></li>
-									</ul>
-								</article>
-
-								<article>
-									<header>
-										<span class="date">Spring 2021</span>
-										<h2><a href="BEM.html">The Disposition Effect Resulting from Irregular
-											Reference Point Setting</a></h2>
-									</header>
-									<!-- <a href="#" class="image fit"><img src="images/pic03.jpg" alt="" /></a> -->
-									<p>This paper proposes that a rational investor would set her reference point based on her expectation of 
-										the growth or future value of the asset, rather than the purchase price. When selling, 
-										 traders will receive an additional utility based on the difference between the trader reference point 
-										 and current price of the stock, which is the primary non-rational behavior in this model. Realization 
-										 utility is supported by Frydman (2012) and I propose this realization utility could me more accurately 
-										 modeled as an internal reaction to the belief that the investor accurately set price targets, 
-										 so investors would still value paper gains.</p>
-									<ul class="actions special">
-										<li><a href="BEM.html" class="button">Full Story</a></li>
-									</ul>
-								</article>
-
-							</section>
-					</div>
-
-				<!-- Footer -->
-					<footer id="footer">
-
-						<section class="split contact">
-							<section class="alt">
-								<h3>Address</h3>
-								<p>Manhattan Beach, CA 90291</p>
-							</section>
-							<section>
-								<h3>Phone</h3>
-								<p><a href="#">(424) 216-1785</a></p>
-							</section>
-							<section>
-								<h3>Email</h3>
-								<p><a href="#">jeremiah.dibble@gmail.com</a></p>
-							</section>
-							<section>
-								<h3>Social</h3>
-								<ul class="icons alt">
-									<li><a href="https://www.linkedin.com/in/jeremiah-dibble/" class="icon brands fa-linkedin"><span class="label">LinkedIn</span></a></li>
-									<li><a href="https://github.com/jeremiah-dibble" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
-								</ul>
-							</section>
-						</section>
-					</footer>
-			</div>
-
-		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/jquery.scrollex.min.js"></script>
-			<script src="assets/js/jquery.scrolly.min.js"></script>
-			<script src="assets/js/browser.min.js"></script>
-			<script src="assets/js/breakpoints.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script>
-		</p>
-	</body>
-	
-</html>
+								</article>  -->

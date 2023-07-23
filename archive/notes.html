@@ -1,0 +1,50 @@
+<h2>JavaScript Geolocation</h2>
+								
+<p>Click the button to get your coordinates.</p>
+
+<form action="">
+    Name: <input type="text" name="name"><br>
+    E-mail: <input type="text" name="email"><br>
+    <input type="submit" >
+</form>
+<button onclick="getLocation()">Try It</button>
+
+<p id="demo"></p>
+
+<script>
+var name = document.getElementsByName("name")[0].value;
+
+const x = document.getElementById("demo");
+
+function getLocation() {
+    try {
+    navigator.geolocation.getCurrentPosition(showPosition);
+    } catch {
+    x.innerHTML = err;
+    }
+}
+
+function showPosition(position) {
+    x.innerHTML =  "Location is: Latitude: " +name + position.coords.latitude + 
+    "<br>Longitude: " + position.coords.longitude;
+}
+</script>
+
+
+<div id="wrap">
+    <input id="field" type="text" value="enter quality" size="20">
+    <input type="button" value="Predict">
+    <div id="results">
+        Results</div>
+  </div>
+  <!-- end wrap -->
+  <script type="text/javascript">
+
+      var resultsObj, fieldObj;
+      resultsObj = document.getElementById("results");
+      fieldObj = document.getElementById('field');
+      fieldObj.addEventListener('blur', function(){
+        resultsObj.innerHTML=this.value; 
+        });
+   </script>
+
