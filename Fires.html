@@ -5,226 +5,244 @@
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 -->
 <html>
-	<head>
-		<title>SVD Movie Ratings - Jeremiah Dibble</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="assets/css/main.css" />
-		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
-	</head>
-	
-	<body class="is-preload">
-	
-		<!-- Wrapper -->
-			<div id="wrapper">
-				<!-- Header -->
-				<header id="header">
-					<a href="index.html" class="logo">Jeremiah Dibble</a>
+
+<head>
+	<title>Forest Fire Analysis - Jeremiah Dibble</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<link rel="stylesheet" href="assets/css/main.css" />
+	<noscript>
+		<link rel="stylesheet" href="assets/css/noscript.css" />
+	</noscript>
+</head>
+
+<body class="is-preload">
+
+	<!-- Wrapper -->
+	<div id="wrapper">
+		<!-- Header -->
+		<header id="header">
+			<a href="index.html" class="logo">Jeremiah Dibble</a>
+		</header>
+
+		<!-- Nav -->
+		<nav id="nav">
+			<ul class="links">
+				<li class="active"><a href="index.html">Projects</a></li>
+				<li class="active"><a href="Fires.html">Fires</a></li>
+				<li class="active"><a href="Resume.html">Resume</a></li>
+
+			</ul>
+			<ul class="icons">
+				<li><a href="https://www.linkedin.com/in/jeremiah-dibble/" class="icon brands fa-linkedin"><span
+							class="label">LinkedIn</span></a></li>
+				<li><a href="https://github.com/jeremiah-dibble" class="icon brands fa-github"><span
+							class="label">GitHub</span></a></li>
+			</ul>
+		</nav>
+
+		<!-- Main -->
+		<div id="main">
+
+			<!-- Post -->
+			<section class="post">
+				<header class="major">
+					<span class="date">Spring 2021</span>
+					<h1>Forest Fire Analysis</h1>
+					<h3>Summary</h3>
+					<p>
+						We tried implementing a variety of models to predict fire type, starting with a simple random
+						forest and decision tree
+						model; followed by adaboost and neural networks. The initial simple models were able to classify
+						with 55%. The neural network also performed poorly and we de-
+						termined it was not an ideal model given the limited number of input variables and the lack of
+						complexity.
+						Finally, we decided a decision tree with gradient boosting would be ideal for sorting
+						categorical data with
+						fairly limited number of variables. To implement this model we used Light GBM because it trains
+						quickly
+						and it we knew we would re-run the model many times in the tuning process.
+					</p>
+					Check out the Code on my
+					<a href="https://colab.research.google.com/drive/12IxGikQ1klxBSWcXBR1167uI3FEWYE52?usp=sharing">
+						Google Colab </a>
 				</header>
 
-				<!-- Nav -->
-				<nav id="nav">
-					<ul class="links">
-						<li class="active"><a href="index.html">Projects</a></li>
-						<li class="active"><a href="Movies.html">SVD</a></li>
-						<li class="active"><a href="Resume.html">Resume</a></li>
 
+				<h2>1 &emsp; Overview</h2>
+				<p>
+					We tried implementing a variety of models to predict fire type, starting with a simple random forest
+					and decision tree
+					model; followed by adaboost and neural networks. The initial simple models were able to classify
+					with 55%. The neural network also performed poorly and we de-
+					termined it was not an ideal model given the limited number of input variables and the lack of
+					complexity.
+					Finally, we decided a decision tree with gradient boosting would be ideal for sorting categorical
+					data with
+					fairly limited number of variables. To implement this model we used Light GBM because it trains
+					quickly
+					and it we knew we would re-run the model many times in the tuning process.
+				</p>
+
+				<p>
+					One of the areas we focused on was pre-processing the data for our model.
+					Due to the seasonality of fires, we extracted the month from the fire date
+					and the year, since fires have been increasing over time. In addition, we
+					decided to replace the missing data in fire size and discovery time with the
+					mean of the set to attempt to ignore the missing data and influence the model
+					as little as possible. Additionally, we were concerned that difference in order
+					of magnitude between the different factors so we normalized all the factor to
+					the same min max range. Min max scaling is appropriate because we are using
+					input data that has fairly limited upper and lower limits, like longitude,
+					latitude, time of day, and fire size. We excluded month and year from this
+					scaling because the new data should consistently be in the end of the time
+					period.
+
+				</p>
+				<p>
+					We approached the project by first looking at the data for any trends between
+					the the data and the and fire classification. The determined what we wanted
+					to do about the missing data. Finally after researching different
+					techniques and trying different models, we implements Light GBM, and
+					tuned it by setting aside a random subset of the training data to use as
+					preliminary test data. Lastly, we explored the tuning parameters to adjust
+					the model base on the problems we could identify with the model.
+				</p>
+
+				<p>In the basic visualization of all the ratings of the Action, Crime, and Fantasy genres we noticed
+					that these genres seem to have roughly the same distribution despite the difference in size.
+				</p>
+
+
+				<h2>2 &emsp; Approach</h2>
+				<h3>2.1 &ensp; Data Processing</h3>
+				<p>
+					We first explored general trends in the data, specifically looking into the
+					seasonal and yearly fires trends. To do this we used seasonal decompose in
+					the stats.models package. This motivated us to decompose our date data into
+					monthly and yearly data to address both the seasonality and general increase
+					in fires overtime. We decided to use the Latitude, Longitude, and State data
+					to account for different environmental factors that could make naturally
+					occurring fires more likely which is generally attributed to location. We
+					did not use the FIPS Name, FIPS Code and Source Reporting Unit Name because
+					the valuable information from these attributes, would be the location which
+					we had already accounted for and the FIPS Name and Source Reporting Unit Name
+					would be difficult to process. Additionally, the FIPS data had many missing
+					entries, so we were concerned that it may harm the model due to the amount
+					of data that would need to bee imputed.
+				</p>
+				<p>Next to deal with missing values in the remaining data we used SimpleImputer
+					from sklearn.impute package to replace the missing data with the mean.
+					We decided to use the mean because we believed that replacing it with zero
+					or discarding it completely would skew our model, or result in difficulty
+					predicting in the case of missing data. We manipulated the state data such
+					that it was converted into an indicator variable to implement it in our model.
+				</p>
+				<h3>2.2 &ensp; Model Techniques</h3>
+				<p>
+					We began model selection by quickly implementing the models we had prior
+					experience with. The random forest and decision tree models were fairly simple
+					to implement and had low but not terrible performance. We thought those two
+					models would do well as a basis because of the categorical nature of the data,
+					but we were also interested to see how a neural net would perform. Because the
+					model did not have many input factor we were concerned the neural net would not
+					do well, but the large amount of data we had encouraged us. The neural net
+					performed similarly to the simple implementations of the decision tree, so we
+					ruled it out. Given the decision tree model performed well we decided to attempt
+					to implement adaboost, but after attempting to modify the model from the homework
+					we concluded that implementing it ourselves was not efficient. At this point we
+					selected the Light GBM model because it can train quickly and uses a boosting
+					model.
+				</p>
+				<p>
+					Something that we implemented out or the ordinary was combining the year with the
+					fire size. We engineered this feature because we believe it helps the model
+					categorize different trends in fire size over time.
+				</p>
+
+				<h2>3 &ensp; Model Selection </h2>
+
+				<p>
+					We choose the best models based on the public test scores, in combination with
+					the AUC scores we achieved when using a 10\% of the provided data as a
+					preliminary test set. The model that scored the best was not one of the ones
+					selected for the final ranking. We believe this was caused by some over fitting
+					in our top scoring model that did not show up in our preliminary scores due to
+					the sample size of the test set. One of the models we submitted within a minute
+					after the competition ended up scoring pretty well because we realized our over
+					fitting problem and were able to tune the model accordingly.
+				</p>
+				<p>
+					In our best models, we had reduced our max depth which resulted in lower AUC
+					scores for our test subset, but they performed best on the full test set on
+					kaggle. This was because limiting the max depth helped to reduce over fitting
+					of our model. We again used the AUC scores when tuning, since it was the same
+					as the metric used by kaggle, we felt it would give us the most accurate scores.
+					We varied many parameters including the learning rate, max depth, and number of
+					leaves to improve our score. Furthermore, we also tried other algorithms in
+					Light Gradient Boosting Machine package out of curiosity to see the differences
+					between the algorithms. The algorithm we choose for our final model was dart.
+					We chose dart because we found that it gave us higher accuracy because the
+					algorithm includes dropouts to combat over fitting, since in most multiple
+					additive regression trees the trees that are added in the later iterations do
+					not impact the predictions of very many leaves, and likely would lead to over
+					fitting.
+				</p>
+				<p>
+					When tuning our initial parameters we used gradient boosting decision trees
+					because they train much faster than the dart model. After iterating over
+					different max depths and learning rates and determine values that would not
+					over-fit, we switch to dart to determine the number of leafs we should use.
+				</p>
+
+
+
+
+			</section>
+
+		</div>
+
+
+
+		<!-- Footer -->
+		<footer id="footer">
+
+			<section class="split contact">
+				<section class="alt">
+					<h3>Address</h3>
+					<p>Manhattan Beach, CA 90291</p>
+				</section>
+				<section>
+					<h3>Phone</h3>
+					<p><a href="#">(424) 216-1785</a></p>
+				</section>
+				<section>
+					<h3>Email</h3>
+					<p><a href="#">jeremiah.dibble@gmail.com</a></p>
+				</section>
+				<section>
+					<h3>Social</h3>
+					<ul class="icons alt">
+						<li><a href="https://www.linkedin.com/in/jeremiah-dibble/" class="icon brands fa-linkedin"><span
+									class="label">LinkedIn</span></a></li>
+						<li><a href="https://github.com/jeremiah-dibble" class="icon brands fa-github"><span
+									class="label">GitHub</span></a></li>
 					</ul>
-					<ul class="icons">
-						<li><a href="https://www.linkedin.com/in/jeremiah-dibble/" class="icon brands fa-linkedin"><span class="label">LinkedIn</span></a></li>
-						<li><a href="https://github.com/jeremiah-dibble" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
-					</ul>
-				</nav>
+				</section>
+			</section>
+		</footer>
 
-				<!-- Main -->
-					<div id="main">
+	</div>
 
-						<!-- Post -->
-							<section class="post">
-								<header class="major">
-									<span class="date">Spring 2021</span>
-									<h1>Forest Fire Analysis</h1>
-									<h3>Summary</h3>
-									<p>
-										We tried implementing a variety of models to predict fire type, starting with a simple random forest and decision tree
-										model; followed by adaboost and neural networks. The initial simple models were able to classify with 55%. The neural network also performed poorly and we de-
-										termined it was not an ideal model given the limited number of input variables and the lack of complexity.
-										Finally, we decided a decision tree with gradient boosting would be ideal for sorting categorical data with
-										fairly limited number of variables. To implement this model we used Light GBM because it trains quickly
-										and it we knew we would re-run the model many times in the tuning process.
-									</p>
-									Check out the Code on my
-									<a href="https://colab.research.google.com/drive/12IxGikQ1klxBSWcXBR1167uI3FEWYE52?usp=sharing">
-										Google Colab </a>
-								</header>
+	<!-- Scripts -->
+	<script src="assets/js/jquery.min.js"></script>
+	<script src="assets/js/jquery.scrollex.min.js"></script>
+	<script src="assets/js/jquery.scrolly.min.js"></script>
+	<script src="assets/js/browser.min.js"></script>
+	<script src="assets/js/breakpoints.min.js"></script>
+	<script src="assets/js/util.js"></script>
+	<script src="assets/js/main.js"></script>
 
+</body>
 
-								<h2>1 &emsp; Overview</h2>
-								<p>
-									We tried implementing a variety of models to predict fire type, starting with a simple random forest and decision tree
-									model; followed by adaboost and neural networks. The initial simple models were able to classify with 55%. The neural network also performed poorly and we de-
-									termined it was not an ideal model given the limited number of input variables and the lack of complexity.
-									Finally, we decided a decision tree with gradient boosting would be ideal for sorting categorical data with
-									fairly limited number of variables. To implement this model we used Light GBM because it trains quickly
-									and it we knew we would re-run the model many times in the tuning process.
-								</p>
-
-								<p>
-									One of the areas we focused on was pre-processing the data for our model. 
-									Due to the seasonality of fires, we extracted the month from the fire date 
-									and the year, since fires have been increasing over time. In addition, we 
-									decided to replace the missing data in fire size and discovery time with the 
-									mean of the set to attempt to ignore the missing data and influence the model 
-									as little as possible. Additionally, we were concerned that difference in order 
-									of magnitude between the different factors so we normalized all the factor to 
-									the same min max range. Min max scaling is appropriate because we are using 
-									input data that has fairly limited upper and lower limits, like longitude, 
-									latitude, time of day, and fire size. We excluded month and year from this 
-									scaling because the new data should consistently be in the end of the time 
-									period.
-
-								</p>
-								<p>
-									We approached the project by first looking at the data for any trends between 
-									the the data and the and fire classification. The determined what we wanted 
-									to do about the missing data. Finally after researching different 
-									techniques and trying different models, we implements Light GBM, and 
-									tuned it by setting aside a random subset of the training data to use as 
-									preliminary test data. Lastly, we explored the tuning parameters to adjust
-									 the model base on the problems we could identify with the model. 
-								</p>
-								
-								<p>In the basic visualization of all the ratings of the Action, Crime, and Fantasy genres we noticed 
-									that these genres seem to have roughly the same distribution despite the difference in size.
-								</p>
-
-
-								<h2>2 &emsp; Approach</h2>
-								<h3>2.1 &ensp; Data Processing</h3>
-								<p>
-									We first explored general trends in the data, specifically looking into the 
-									seasonal and yearly fires trends. To do this we used seasonal decompose in 
-									the stats.models package. This motivated us to decompose our date data into 
-									monthly and yearly data to address both the seasonality and general increase 
-									in fires overtime. We decided to use the Latitude, Longitude, and State data 
-									to account for different environmental factors that could make naturally 
-									occurring fires more likely which is generally attributed to location. We 
-									did not use the FIPS Name, FIPS Code and Source Reporting Unit Name because 
-									the valuable information from these attributes, would be the location which 
-									we had already accounted for and the FIPS Name and Source Reporting Unit Name 
-									would be difficult to process. Additionally, the FIPS data had many missing 
-									entries, so we were concerned that it may harm the model due to the amount 
-									of data that would need to bee imputed.
-								</p>
-								<p>Next to deal with missing values in the remaining data we used SimpleImputer 
-									from sklearn.impute package to replace the missing data with the mean. 
-									We decided to use the mean because we believed that replacing it with zero 
-									or discarding it completely would skew our model, or result in difficulty 
-									predicting in the case of missing data. We manipulated the state data such 
-									that it was converted into an indicator variable to implement it in our model.  
-								</p>
-								<h3>2.2 &ensp; Model Techniques</h3>
-								<p>
-									We began model selection by quickly implementing the models we had prior 
-									experience with. The random forest and decision tree models were fairly simple 
-									to implement and had low but not terrible performance. We thought those two 
-									models would do well as a basis because of the categorical nature of the data, 
-									but we were also interested to see how a neural net would perform. Because the 
-									model did not have many input factor we were concerned the neural net would not 
-									do well, but the large amount of data we had encouraged us.  The neural net 
-									performed similarly to the simple implementations of the decision tree, so we 
-									ruled it out. Given the decision tree model performed well we decided to attempt 
-									to implement adaboost, but after attempting to modify the model from the homework 
-									we concluded that implementing it ourselves was not efficient. At this point we 
-									selected the Light GBM model because it can train quickly and uses a boosting 
-									model.
-								</p>
-								<p>	
-									Something that we implemented out or the ordinary was combining the year with the 
-									fire size. We engineered this feature because we believe it helps the model 
-									categorize different trends in fire size over time.
-								</p>
-
-								<h2>3 &ensp; Model Selection </h2>
-								
-								<p>
-									We choose the best models based on  the public test scores, in combination with 
-									the AUC scores we achieved when using a 10\% of the provided data as a 
-									preliminary test set. The model that scored the best was not one of the ones 
-									selected for the final ranking. We believe this was caused by some over fitting 
-									in our top scoring model that did not show up in our preliminary scores due to 
-									the sample size of the test set. One of the models we submitted within a minute 
-									after the competition ended up scoring pretty well because we realized our over 
-									fitting problem and were able to tune the model accordingly. 
-								</p>
-								<p>
-									In our best models, we had reduced our max depth which resulted in lower AUC 
-									scores for our test subset, but they performed best on the full test set on 
-									kaggle. This was because limiting the max depth helped to reduce over fitting 
-									of our model. We again used the AUC scores when tuning, since it was the same 
-									as the metric used by kaggle, we felt it would give us the most accurate scores. 
-									We varied many parameters including the learning rate, max depth, and number of 
-									leaves to improve our score. Furthermore, we also tried other algorithms in 
-									Light Gradient Boosting Machine package out of curiosity to see the differences 
-									between the algorithms. The algorithm we choose for our final model was dart. 
-									We chose dart because we found that it gave us higher accuracy because the 
-									algorithm includes dropouts to combat over fitting, since in most multiple 
-									additive regression trees the trees that are added in the later iterations do 
-									not impact the predictions of very many leaves, and likely would lead to over 
-									fitting.
-								</p>
-								<p>
-									When tuning our initial parameters we used gradient boosting decision trees 
-									because they train much faster than the dart model.  After iterating over 
-									different max depths and learning rates and determine values that would not 
-									over-fit, we switch to dart to determine the number of leafs we should use. 
-								</p>
-
-								
-
-
-							</section>
-
-					</div>
-
-					
-
-				<!-- Footer -->
-				<footer id="footer">
-
-					<section class="split contact">
-						<section class="alt">
-							<h3>Address</h3>
-							<p>Manhattan Beach, CA 90291</p>
-						</section>
-						<section>
-							<h3>Phone</h3>
-							<p><a href="#">(424) 216-1785</a></p>
-						</section>
-						<section>
-							<h3>Email</h3>
-							<p><a href="#">jeremiah.dibble@gmail.com</a></p>
-						</section>
-						<section>
-							<h3>Social</h3>
-							<ul class="icons alt">
-								<li><a href="https://www.linkedin.com/in/jeremiah-dibble/" class="icon brands fa-linkedin"><span class="label">LinkedIn</span></a></li>
-								<li><a href="https://github.com/jeremiah-dibble" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
-							</ul>
-						</section>
-					</section>
-				</footer>
-
-			</div>
-
-		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/jquery.scrollex.min.js"></script>
-			<script src="assets/js/jquery.scrolly.min.js"></script>
-			<script src="assets/js/browser.min.js"></script>
-			<script src="assets/js/breakpoints.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script>
-
-	</body>
 </html>
